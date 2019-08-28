@@ -54,7 +54,7 @@ class BatchREINFORCE:
         vpg_grad = np.concatenate([g.contiguous().view(-1).data.numpy() for g in vpg_grad])
         return vpg_grad
 
-    # ----------------------------------------------------------
+    # -----------------------------------------------------------
     def train_step(self, N,
                    sample_mode='trajectories',
                    env_name=None,
@@ -87,7 +87,7 @@ class BatchREINFORCE:
         process_samples.compute_returns(paths, gamma)
         # compute advantages
         process_samples.compute_advantages(paths, self.baseline, gamma, gae_lambda)
-        # train from paths
+        # train from paths.. call to optimizer...npg_cg_delta.train_from_paths
         eval_statistics = self.train_from_paths(paths)
         eval_statistics.append(N)
         # fit baseline
@@ -103,6 +103,7 @@ class BatchREINFORCE:
         return eval_statistics
 
     # ----------------------------------------------------------
+    # makes call to the optimizer....
     def train_from_paths(self, paths):
 
         # Concatenate from all the trajectories

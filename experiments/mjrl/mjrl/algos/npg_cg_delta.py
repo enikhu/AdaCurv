@@ -140,6 +140,7 @@ class NPG(BatchREINFORCE):
         t_gLL = 0.0
         t_FIM = 0.0
 
+        # sets all gradients to zero
         self.optim.zero_grad()
 
         # Optimization. Negate gradient since the optimizer is minimizing.

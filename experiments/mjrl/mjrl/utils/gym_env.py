@@ -16,7 +16,7 @@ class GymEnv(object):
         self.env = env
 
         self.env_id = env.spec.id
-        self._horizon = env.spec.timestep_limit
+        self._horizon = 1000
         try:
             self._action_dim = self.env.env.action_dim
         except AttributeError:
