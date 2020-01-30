@@ -38,7 +38,7 @@ def train_agent(job_name, agent,
     train_curve = best_perf*np.ones(niter)
     mean_pol_perf = 0.0
     e = GymEnv(agent.env.env_id)
-
+    gamma_orig = gamma
     for i in range(niter):
         if verbose:
             print("......................................................................................")
@@ -46,6 +46,7 @@ def train_agent(job_name, agent,
         if train_curve[i-1] > best_perf:
             best_policy = copy.deepcopy(agent.policy)
             best_perf = train_curve[i-1]
+        gamma = gamma_orig * (1 - 0.00005) ** i
         N = num_traj if sample_mode == 'trajectories' else num_samples
         args = dict(N=N, sample_mode=sample_mode, gamma=gamma, gae_lambda=gae_lambda, num_cpu=num_cpu)
         stats = agent.train_step(**args)

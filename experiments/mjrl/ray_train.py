@@ -10,6 +10,7 @@ from mjrl.utils.train_agent import train_agent
 from mjrl.algos.npg_cg import NPG
 from mjrl.algos.trpo import TRPO
 import mjrl.envs
+from datetime import datetime
 
 import adacurv.torch.optim as fisher_optim
 
@@ -22,7 +23,8 @@ def build_log_dir(tag, variant):
         shrinkage_method, lanczos_amortization, lanczos_iters, approx_adaptive, betas, use_nn_policy, gn_vfn_opt, total_samples = variant
     beta1, beta2 = betas
 
-    dir = os.path.join('results', tag)
+    dir = os.path.join('../../../results/adacurv', tag)
+    dir = os.path.join(dir, '_'.join(str(datetime.now()).split(' ')))
     dir = os.path.join(dir, env)
     dir = os.path.join(dir, algo)
     dir = os.path.join(dir, optim)
@@ -33,6 +35,9 @@ def build_log_dir(tag, variant):
 
     dir = os.path.join(dir, "curv_type_" + curv_type)
     dir = os.path.join(dir, "cg_iters_" + str(cg_iters))
+    dir = os.path.join(dir, "shrinkage_method_" + str(shrinkage_method))
+    dir = os.path.join(dir, "lanczos_amortization_" + str(lanczos_amortization))
+    dir = os.path.join(dir, "lanczos_iters_" + str(lanczos_iters))
     dir = os.path.join(dir, "cg_residual_tol_" + str(cg_residual_tol))
     dir = os.path.join(dir, "cg_prev_init_coef_" + str(cg_prev_init_coef))
 
@@ -71,6 +76,7 @@ def build_log_dir(tag, variant):
         dir = os.path.join(dir, "betas"+str(beta1)+"_"+str(beta2))
 
     dir = os.path.join(dir, str(seed))
+
     return dir
 
 def launch_job(tag, variant):
