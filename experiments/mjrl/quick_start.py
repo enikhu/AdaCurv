@@ -27,7 +27,7 @@ variant_trpo_natural_adam = [21,                       # seed
                             (0.756, 0.756),               # betas for gradient and Fisher
                             True,                     # use neural net policy
                             False,                    # GN value func opt
-                            1000000]                  # total samples
+                            500000]                  # total samples
 
 variant_trpo =             [0,                       # seed
                             'HopperBulletEnv-v0',     # environment
